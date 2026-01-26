@@ -9,11 +9,9 @@ void script::script_exception_handler(PEXCEPTION_POINTERS exp)
     HMODULE mod{};
     DWORD64 offset{};
     char buffer[MAX_PATH]{};
-
-    // Use the ANSI version explicitly
     if (GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
-            (LPCSTR)exp->ExceptionRecord->ExceptionAddress, // cast to LPCSTR for A version
+            (LPCSTR)exp->ExceptionRecord->ExceptionAddress, 
             &mod) == TRUE && mod != nullptr)
     {
         offset = (DWORD64)exp->ExceptionRecord->ExceptionAddress - (DWORD64)mod;
