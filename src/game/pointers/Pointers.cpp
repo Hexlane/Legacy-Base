@@ -12,7 +12,7 @@ namespace NewBase
 		const auto gta5 = ModuleMgr.Get("GTA5.exe"_J);
 		if (!gta5)
 		{
-			LOG(FATAL) << "Could not find " << gta5->Name() << ", is this GTA5?";
+			g_log.send("FATAL", "Could not find [{}], is this GTA5?", gta5->Name());
 
 			return false;
 		}
