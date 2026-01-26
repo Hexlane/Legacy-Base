@@ -59,14 +59,14 @@ namespace NewBase
 
 		if (!scanner.Scan())
 		{
-			LOG(FATAL) << "Some patterns could not be found, unloading.";
+			g_log.send("FATAL", "Some patterns could not be found, unloading.");
 
 			return false;
 		}
 
 		if (Hwnd = FindWindow("grcWindow", nullptr); !Hwnd)
 		{
-			LOG(FATAL) << "Failed to grab game window, unloading.";
+			g_log.send("FATAL", "Failed to grab game window, unloading.");
 
 			return false;
 		}
