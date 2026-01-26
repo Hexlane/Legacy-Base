@@ -16,9 +16,7 @@ namespace functions
 
 	struct PointerData
 	{
-		IDXGISwapChain** SwapChain;
 		HWND Hwnd;
-		WNDPROC WndProc;
 		CPedFactory **m_ped_factory{};
 		PVOID m_init_native_tables;
 		rage::scrNativeRegistrationTable *m_native_registration_table{};
@@ -26,6 +24,7 @@ namespace functions
 		functions::fix_vectors_t m_fix_vectors{};
 		functions::run_script_threads_t m_run_script_threads{};
 		rage::atArray<GtaThread*> *m_script_threads{};
+		std::int64_t** m_script_globals;
 	};
 
 	struct Pointers : PointerData
