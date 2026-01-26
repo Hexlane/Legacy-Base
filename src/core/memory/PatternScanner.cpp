@@ -33,7 +33,7 @@ namespace NewBase
 		}
 		if (!scanSuccess)
 		{
-			LOG(FATAL) << "Some patterns have not been found, continuing would be foolish.";
+			g_log.send("FATAL", "Some patterns have not been found, continuing would be foolish.");
 		}
 		return scanSuccess;
 	}
@@ -59,15 +59,13 @@ namespace NewBase
 
 			if (found)
 			{
-				LOG(INFO) << "Found pattern [" << pattern->Name() << "] : [" << HEX(i) << "]";
-
+				g_log.send("INFO", "Found pattern [{}] : [{:X}]", pattern->Name(), i);
 				std::invoke(func, i);
 
 				return true;
 			}
 		}
-
-		LOG(WARNING) << "Failed to find pattern [" << pattern->Name() << "]";
+		g_log.send("WARNING", "Failed to find pattern [{}]", pattern->Name());
 		return false;
 	}
 }
