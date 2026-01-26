@@ -30,21 +30,22 @@ namespace NewBase
 	{
 		if (!Pointers.SwapChain)
 		{
-			LOG(WARNING) << "SwapChain pointer is invalid!";
+			g_log.send("WARNING", "SwapChain pointer is invalid!");
 
 			return false;
 		}
 
 		if (m_SwapChain = *Pointers.SwapChain; !m_SwapChain)
 		{
-			LOG(WARNING) << "Dereferenced SwapChain pointer is invalid!";
+			g_log.send("WARNING", "Dereferenced SwapChain pointer is invalid!");
+
 
 			return false;
 		}
 
 		if (const auto result = m_SwapChain->GetDevice(__uuidof(ID3D11Device), reinterpret_cast<void**>(&m_Device)); result < 0)
 		{
-			LOG(WARNING) << "Failed to get D3D Device with result: [" << result << "]";
+			g_log.send("WARNING", "Failed to get D3D Device with result: [{}]", result);
 
 			return false;
 		}
@@ -57,7 +58,8 @@ namespace NewBase
 		ImGui_ImplDX11_Init(m_Device, m_DeviceContext);
 		ImGui_ImplWin32_Init(Pointers.Hwnd);
 
-		LOG(INFO) << "Renderer has finished initializing.";
+		g_log.send("INFO", "Renderer has finished initializing.");
+
 		return true;
 	}
 
