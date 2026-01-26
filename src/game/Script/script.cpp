@@ -75,7 +75,7 @@ void script::script_exception_handler(PEXCEPTION_POINTERS exp)
 			EXCEPT_CLAUSE
 
 			[]() {
-			LOG(INFO) << "Script finished!";
+			g_log.send("INFO", "Script finished!");
 		}();
 
 		while (true)
