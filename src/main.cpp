@@ -5,10 +5,37 @@
 #include "core/renderer/Renderer.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
-
-
+#include "game/Script/script_mgr.h"
+#include "game/gta/invoker/natives.h"
 namespace NewBase
 {
+
+	bool superjumpbool = true;
+	void Superjump(bool toggle)
+	{
+		if (toggle)
+		{
+			MISC::SET_SUPER_JUMP_THIS_FRAME(PLAYER::PLAYER_ID());
+		}
+	}
+	void run_tick()
+	{
+		superjumpbool ? Superjump(true) : Superjump(false);
+	}
+
+	void script_func()
+	{
+		while (true)
+		{
+			TRY_CLAUSE
+			{
+				run_tick();
+			}
+			EXCEPT_CLAUSE
+			script::get_current()->yield();
+		}
+	}
+
 	DWORD Main(void*)
 	{
 		const auto documents = std::filesystem::path(std::getenv("USERPROFILE")) / "Documents";
@@ -24,6 +51,8 @@ namespace NewBase
 			goto unload;
 		GUI::Init();
 		Hooking::Init();
+
+		g_script_mgr.add_script(std::make_unique<script>(&script_func));
 
 		while (g_Running)
 		{
