@@ -7,6 +7,7 @@
 #include "game/pointers/Pointers.hpp"
 #include "game/Script/script_mgr.h"
 #include "game/gta/invoker/natives.h"
+#include "game/Script/fiber_pool.h"
 namespace NewBase
 {
 
@@ -41,14 +42,19 @@ namespace NewBase
 		const auto documents = std::filesystem::path(std::getenv("USERPROFILE")) / "Documents";
 		FileMgr::Init(documents / "HellBase");
 
-		LogHelper::Init("henlo", FileMgr::GetProjectFile("./cout.log").Path());
+		g_log.attach();
 
-		if (!ModuleMgr.LoadModules())
-			goto unload;
-		if (!Pointers.Init())
-			goto unload;
-		if (!Renderer::Init())
-			goto unload;
+		
+
+		if (!ModuleMgr.LoadModules());
+			
+		if (!Pointers.Init());
+			
+		if (!Renderer::Init());
+			
+		auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
+
+
 		GUI::Init();
 		Hooking::Init();
 
@@ -59,10 +65,11 @@ namespace NewBase
 			std::this_thread::sleep_for(100ms);
 		}
 
-	unload:
+	
 		Hooking::Destroy();
+		fiber_pool_instance.reset();
 		Renderer::Destroy();
-		LogHelper::Destroy();
+		g_log.detach();
 
 		CloseHandle(g_MainThread);
 		FreeLibraryAndExitThread(g_DllInstance, EXIT_SUCCESS);
