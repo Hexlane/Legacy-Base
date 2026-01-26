@@ -1,6 +1,5 @@
 #pragma once
-#include "util/Joaat.hpp"
-
+#include "game/gta/joaat.h"
 #include <d3d11.h>
 #include <functional>
 #include <map>
@@ -93,7 +92,7 @@ namespace NewBase
 		ID3D11DeviceContext* m_DeviceContext;
 		IDXGISwapChain* m_SwapChain;
 
-		std::map<joaat_t, DXCallback> m_DXCallbacks;
+		std::map<rage::joaat_t, DXCallback> m_DXCallbacks;
 		std::vector<WindowProcedureCallback> m_WindowProcedureCallbacks;
 	};
 }
