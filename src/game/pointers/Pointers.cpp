@@ -1,9 +1,9 @@
 #include "Pointers.hpp"
-
+#include "game/frontend/xorstr.h"
 #include "core/memory/BytePatch.hpp"
 #include "core/memory/ModuleMgr.hpp"
 #include "core/memory/PatternScanner.hpp"
-#include "util/Joaat.hpp"
+#include "game/gta/joaat.h"
 
 namespace NewBase
 {
@@ -13,23 +13,13 @@ namespace NewBase
 		if (!gta5)
 		{
 			g_log.send("FATAL", "Could not find [{}], is this GTA5?", gta5->Name());
-
 			return false;
 		}
 
 		auto scanner = PatternScanner(gta5);
 
-		constexpr auto swapchainPtrn = Pattern<"48 8B 0D ? ? ? ? 48 8B 01 44 8D 43 01 33 D2 FF 50 40 8B C8">("IDXGISwapChain");
-		scanner.Add(swapchainPtrn, [this](PointerCalculator ptr) {
-			SwapChain = ptr.Add(3).Rip().As<IDXGISwapChain**>();
-		});
 
-		constexpr auto wndProcPtrn = Pattern<"48 8B C4 48 89 58 08 4C 89 48 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 68 A1 48 81 EC F0">("WNDPROC");
-		scanner.Add(wndProcPtrn, [this](PointerCalculator ptr) {
-			WndProc = ptr.As<WNDPROC>();
-		});
-
-		constexpr auto PedfPTR = Pattern<"48 8B 05 ? ? ? ? 48 8B 48 08 48 85 C9 74 52 8B 81">("PF");
+		constexpr auto PedfPTR = Pattern<("48 8B 05 ? ? ? ? 48 8B 48 08 48 85 C9 74 52 8B 81")>("PF");
 		scanner.Add(PedfPTR, [this](PointerCalculator ptr) {
 			m_ped_factory = ptr.Add(3).Rip().As<CPedFactory**>();
 		});
@@ -52,9 +42,12 @@ namespace NewBase
 				m_run_script_threads = ptr.Sub(0x1F).As<functions::run_script_threads_t>();
 		});
 
+		constexpr auto SGptr = Pattern<"48 8D 15 ? ? ? ? 4C 8B C0 E8 ? ? ? ? 48 85 FF 48 89 1D">("SG");
+		scanner.Add(STptr, [this](PointerCalculator ptr) {
+			   m_script_globals = ptr.Add(3).Rip().As<std::int64_t**>();
+		});
 
 
-		
 	
 
 		if (!scanner.Scan())
