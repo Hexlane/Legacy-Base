@@ -1,12 +1,12 @@
 #include "ModuleMgr.hpp"
+#include "game/gta/joaat.h"
 
-#include "util/Joaat.hpp"
 
 namespace NewBase
 {
 	Module* ModuleMgr::Get(const std::string_view name)
 	{
-		return Get(Joaat(name));
+		return Get(rage::joaat(name));
 	}
 
 	Module* ModuleMgr::Get(joaat_t hash)
@@ -40,7 +40,7 @@ namespace NewBase
 			{
 				auto module = std::make_unique<Module>(tableEntry);
 
-				m_CachedModules.insert({Joaat(module->Name()), std::move(module)});
+				m_CachedModules.insert({rage::joaat(module->Name()), std::move(module)});
 			}
 		}
 
