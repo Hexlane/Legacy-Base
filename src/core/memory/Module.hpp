@@ -82,7 +82,7 @@ namespace NewBase
 			return m_Base.Add(funcOffsets[i]).As<T>();
 		}
 
-		LOG(FATAL) << "Cannot find export: " << symbolName;
+		g_log.send("FATAL", "Cannot find export: [{}]", symbolName);
 		return nullptr;
 	}
 }
