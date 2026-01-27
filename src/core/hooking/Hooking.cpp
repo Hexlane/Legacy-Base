@@ -31,13 +31,6 @@ bool run_script_threads(std::uint32_t ops_to_execute)
 
 	Hooking::Hooking()
 	{
-		BaseHook::Add<Window::WndProc>(new DetourHook("WndProc", Pointers.WndProc, Window::WndProc));
-
-		auto swapchain = new VMTHook<SwapChain::VMTSize>("SwapChain", *Pointers.SwapChain);
-		swapchain->Hook(SwapChain::VMTPresentIdx, SwapChain::Present);
-		swapchain->Hook(SwapChain::VMTResizeBuffersIdx, SwapChain::ResizeBuffers);
-		BaseHook::Add<SwapChain::Present>(swapchain);
-       
 		BaseHook::Add<run_script_threads>(new DetourHook("Script hook", Pointers.m_run_script_threads, run_script_threads));
 
 	}
