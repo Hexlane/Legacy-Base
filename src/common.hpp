@@ -22,7 +22,7 @@
 #include <nlohmann/json.hpp>
 
 using namespace al;
-#include "core/logger/LogHelper.hpp"
+#include "core/logger/log.h"
 
 namespace NewBase
 {
