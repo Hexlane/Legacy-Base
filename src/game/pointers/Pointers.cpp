@@ -1,5 +1,4 @@
 #include "Pointers.hpp"
-#include "game/frontend/xorstr.h"
 #include "core/memory/BytePatch.hpp"
 #include "core/memory/ModuleMgr.hpp"
 #include "core/memory/PatternScanner.hpp"
