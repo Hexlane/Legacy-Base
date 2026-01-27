@@ -2,7 +2,6 @@
 #include "core/filemgr/FileMgr.hpp"
 #include "core/hooking/Hooking.hpp"
 #include "core/memory/ModuleMgr.hpp"
-#include "core/renderer/Renderer.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
 #include "game/Script/script_mgr.h"
@@ -47,10 +46,8 @@ namespace NewBase
 		
 
 		if (!ModuleMgr.LoadModules());
-			
 		if (!Pointers.Init());
 			
-		if (!Renderer::Init());
 			
 		auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
 
@@ -68,7 +65,6 @@ namespace NewBase
 	
 		Hooking::Destroy();
 		fiber_pool_instance.reset();
-		Renderer::Destroy();
 		g_log.detach();
 
 		CloseHandle(g_MainThread);
