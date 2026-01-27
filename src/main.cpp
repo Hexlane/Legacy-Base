@@ -2,7 +2,6 @@
 #include "core/filemgr/FileMgr.hpp"
 #include "core/hooking/Hooking.hpp"
 #include "core/memory/ModuleMgr.hpp"
-#include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
 #include "game/Script/script_mgr.h"
 #include "game/gta/invoker/natives.h"
@@ -52,7 +51,6 @@ namespace NewBase
 		auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
 
 
-		GUI::Init();
 		Hooking::Init();
 
 		g_script_mgr.add_script(std::make_unique<script>(&script_func));
