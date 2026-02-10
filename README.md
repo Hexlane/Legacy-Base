@@ -1,9 +1,22 @@
-# Template Hell Base
+# 🔥 Template Hell Base
 
-This base is honestly a joke and a learning opporunity for myself to learn some more stuff about C++20. I went through the basics of what makes a mod menu base and tried to template them to hell and back.
+A deliberately **over-engineered experimental base**, created as a **learning playground** to explore modern **C++20**, heavy template usage, and advanced design patterns.
 
-## Structure
+This project intentionally pushes template usage *to absurd levels* in order to better understand compile-time abstraction, type safety, performance implications, and architecture design for large-scale mod menu frameworks.
 
-- `core/` : Essential general features for the base
-- `game/` : Game specific implemented things
-- `util/` : Loose functions that aren't game specific
+> ⚠️ This base is **not intended for production use**.  
+> It exists primarily for **education, experimentation, and suffering.**
+
+---
+
+## 🧠 Purpose
+
+- Learn advanced **C++20**
+- Explore **template metaprogramming**
+- Experiment with **compile-time polymorphism**
+- Build a modular **mod menu framework architecture**
+- Suffer (productively)
+
+---
+
+## 🗂 Project Structure
