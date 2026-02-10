@@ -20,3 +20,6 @@ This project intentionally pushes template usage *to absurd levels* in order to 
 ---
 
 ## 🗂 Project Structure
+core/ : Essential general features for the base
+game/ : Game specific implemented things
+util/ : Loose functions that aren't game specific
