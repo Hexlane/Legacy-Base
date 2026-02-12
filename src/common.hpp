@@ -18,11 +18,8 @@
 #include <string_view>
 #include <thread>
 #include <vector>
-
-#include <nlohmann/json.hpp>
-
-using namespace al;
 #include "core/logger/log.h"
+
 
 namespace NewBase
 {
